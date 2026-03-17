@@ -40,6 +40,8 @@ function syncForPeriod(dateFrom, dateTo) {
 
   activities.forEach(function(a) {
     if (existingIds.indexOf(String(a.id)) !== -1) return;
+    var subject = (a.subject || '').toLowerCase();
+    if (subject.indexOf('без відповіді') !== -1 || subject.indexOf('пропущено') !== -1) return;
     var doneTime = a.marked_as_done_time ? new Date(a.marked_as_done_time) : null;
     if (!doneTime || doneTime < dateFrom || doneTime > dateTo) return;
 
